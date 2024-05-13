@@ -18,10 +18,11 @@
 					</div>
 				</div>
 				<div id="form"></div>
-				<div class="flex-1 overflow-y-scroll mb-3">
-				</div>
+				{{ range .Todos }}
+					<p>{{ .Description }}</p>
+				{{ end }}
 			</div>
 		</div>
-		<script src="home.js"></script>
+		<script src="./home.js"></script>
 	</body>
 </html>

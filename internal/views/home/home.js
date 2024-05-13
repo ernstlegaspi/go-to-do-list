@@ -12,6 +12,7 @@ addForm.addEventListener("click", () => {
 
 	const inputForm = document.createElement("input")
 	inputForm.classList.add("flex-1", "outline-none", "bg-transparent", "border-b", "border-black")
+	inputForm.setAttribute("name", "description")
 
 	const addButton = document.createElement("button")
 	addButton.classList.add("select-none", "py-2", "px-4", "rounded", "border", "border-green-300", "bg-green-300", "text-white", "transition-all", "hover:bg-green-400", "hover:border-green-400", "mx-3")
