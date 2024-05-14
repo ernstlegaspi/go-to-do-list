@@ -3,11 +3,11 @@ package handlers
 import (
 	"database/sql"
 	"fmt"
-	"html/template"
 	"net/http"
 	"time"
 
 	"github.com/ernstlegaspi/todolist/internal/types"
+	"github.com/ernstlegaspi/todolist/internal/views"
 )
 
 type handler struct {
@@ -20,29 +20,20 @@ func Run(db *sql.DB) *handler {
 	}
 }
 
-func (h *handler) InitEndpoints(mux *http.ServeMux) {
+func (h *handler) InitListEndpoints(mux *http.ServeMux) {
+	// START OF PAGES ENDPOINT
 	mux.HandleFunc("/", h.homePage)
+	// END OF PAGES ENDPOINT
+
+	// START OF API ENDPOINTS
+	mux.HandleFunc("GET /todo", h.getTodos)
+
+	mux.HandleFunc("POST /todo", h.addTodo)
+	// END OF API ENDPOINTS
 }
 
 func (h *handler) homePage(w http.ResponseWriter, r *http.Request) {
-	todos, err := h.getTodos()
-
-	if err != nil {
-		fmt.Println(err)
-		fmt.Println("Can not get todos")
-		return
-	}
-
-	if r.URL.Path == "/home.js" {
-		w.Header().Set("Content-Type", "application/javascript")
-		http.ServeFile(w, r, "../internal/views/home/home.js")
-		return
-	}
-
-	templ := template.Must(template.ParseFiles("../internal/views/home/Home.html"))
-	templ.Execute(w, map[string][]*types.Todo{
-		"Todos": todos,
-	})
+	views.Home().Render(r.Context(), w)
 }
 
 func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
@@ -58,7 +49,7 @@ func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
 		values ($1, $2, $3)
 	`
 
-	_, err := h.db.Query(
+	_, err := h.db.Exec(
 		query,
 		body.CreatedAt,
 		body.Description,
@@ -71,16 +62,16 @@ func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("List inserted.")
+	views.ToDoCard(body.Description).Render(r.Context(), w)
 }
 
-func (h *handler) getTodos() ([]*types.Todo, error) {
+func (h *handler) getTodos(w http.ResponseWriter, r *http.Request) {
 	rows, err := h.db.Query("select * from list")
 
 	if err != nil {
 		fmt.Println(err)
 		fmt.Println("Can not fetch todos")
-		return nil, err
+		return
 	}
 
 	defer rows.Close()
@@ -100,11 +91,13 @@ func (h *handler) getTodos() ([]*types.Todo, error) {
 		if err != nil {
 			fmt.Println(err)
 			fmt.Println("Error fetching todo")
-			return nil, err
+			return
 		}
 
 		todos = append(todos, todo)
 	}
 
-	return todos, nil
+	for _, todo := range todos {
+		views.ToDoCard(todo.Description).Render(r.Context(), w)
+	}
 }

@@ -20,6 +20,7 @@ func InitServer(addr string) *server {
 
 func (s *server) RunAPI() error {
 	router := http.NewServeMux()
+	fs := http.FileServer(http.Dir("../internal/static"))
 
 	db, err := database.ConnectDB()
 
@@ -35,8 +36,10 @@ func (s *server) RunAPI() error {
 		return listTableErr
 	}
 
+	router.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	list := handlers.Run(db.DB)
-	list.InitEndpoints(router)
+	list.InitListEndpoints(router)
 
 	server := http.Server{
 		Addr:    s.addr,
