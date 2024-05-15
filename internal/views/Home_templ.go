@@ -159,7 +159,7 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"cancel-button\" class=\"select-none py-2 px-4 rounded border border-red-300 bg-red-300 text-white transition-all hover:bg-red-400 hover:border-red-400\">Cancel\r</button></form></div><div hx-get=\"/todo\" hx-trigger=\"load\" hx-target=\"#todos\" hx-swap=\"innerHTML\"></div><div id=\"todos\" class=\"scroll\"></div></div></div></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"select-none py-2 px-4 rounded border border-red-300 bg-red-300 text-white transition-all hover:bg-red-400 hover:border-red-400\">Cancel\r</button></form></div><div hx-get=\"/todo\" hx-trigger=\"load\" hx-target=\"#todos\" hx-swap=\"innerHTML\"></div><div id=\"todos\" class=\"scroll\"></div></div></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

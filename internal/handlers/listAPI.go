@@ -32,6 +32,8 @@ func (h *handler) InitListEndpoints(mux *http.ServeMux) {
 	mux.HandleFunc("GET /todo", h.getTodos)
 
 	mux.HandleFunc("POST /todo", h.addTodo)
+
+	mux.HandleFunc("PUT /todo/{id}", h.updateTodo)
 	// END OF API ENDPOINTS
 }
 
@@ -69,6 +71,32 @@ func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	views.ToDoCard(body.Description, strconv.Itoa(id)).Render(r.Context(), w)
+}
+
+func (h *handler) updateTodo(w http.ResponseWriter, r *http.Request) {
+	n, idErr := strconv.Atoi(r.PathValue("id"))
+
+	if idErr != nil {
+		fmt.Println(idErr)
+		fmt.Println("Invalid id")
+		return
+	}
+
+	_, err := h.db.Exec(
+		"update list set description = $2, updatedAt = $3 where id = $1",
+		n,
+		r.FormValue("description-update"),
+		time.Now(),
+	)
+
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Internal server error")
+		return
+	}
+
+	fmt.Println("Updated")
+	h.getTodos(w, r)
 }
 
 func (h *handler) deleteTodo(w http.ResponseWriter, r *http.Request) {

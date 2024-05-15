@@ -1,0 +1,43 @@
+package views
+
+script updateFieldChange(id string) {
+	const inputForm = document.getElementById(`update-input-form-${id}`)
+	const updateButton = document.getElementById(`update-button-${id}`)
+	const val = inputForm.value
+
+	if(val.length < 5) {
+		updateButton.setAttribute("disabled", true)
+		updateButton.classList.remove("hover:border-green-400", "hover:bg-green-400", "border-green-300", "bg-green-300")
+		updateButton.classList.add("border-green-100", "bg-green-100")
+		return
+	}
+
+	updateButton.classList.add("hover:border-green-400", "hover:bg-green-400", "border-green-300", "bg-green-300")
+	updateButton.classList.remove("border-green-100", "bg-green-100")
+	updateButton.removeAttribute("disabled", false)
+}
+
+script cancelUpdate(id string) {
+	const form = document.getElementById(`overlay-${id}`)
+
+	form.classList.add("hidden")
+}
+
+templ EditModal(id string) {
+	<div id={"overlay-" + id} class="hidden inset-0 fixed bg-black/50">
+		<div class="bg-white w-[300px] p-2 rounded">
+			<p class="font-medium text-center text-[20px] py-3">Edit Form</p>
+			<form hx-put={"/todo/" + id} hx-target="#todos" hx-swap="innerHTML">
+				<input oninput={updateFieldChange(id)} id={"update-input-form-" + id} class="w-full flex-1 outline-none bg-transparent border-b border-black" name="description-update" />
+				<br />
+				<button disabled="true" id={"update-button-" + id} class="select-none py-2 w-full rounded border text-white transition-all my-2 border-green-100 bg-green-100" type="submit">
+					Update
+				</button>
+				<br />
+				<button type="button" onclick={cancelUpdate(id)} class="select-none py-2 w-full rounded border border-red-300 bg-red-300 text-white transition-all hover:bg-red-400 hover:border-red-400">
+					Cancel
+				</button>
+			</form>
+		</div>
+	</div>
+}
