@@ -108,7 +108,7 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"w-full h-full flex items-center justify-center\"><div class=\"flex flex-col bg-white rounded h-[90%] w-[400px] shadow-sm shadow-black/80 px-3\"><div class=\"flex justify-between items-center my-3\"><h1 class=\"text-[25px] font-bold select-none text-[#272727]\">To Do List</h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"w-full h-full flex items-center justify-center\"><div class=\"flex flex-col bg-white rounded h-[90%] w-[400px] px-3\"><div class=\"flex justify-between items-center my-3\"><h1 class=\"text-[25px] font-bold select-none text-[#272727]\">To Do List</h1>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

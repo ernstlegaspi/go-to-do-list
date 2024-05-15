@@ -10,3 +10,12 @@ type Todo struct {
 	Description string
 	UpdatedAt   time.Time
 }
+
+type User struct {
+	ID        int
+	CreatedAt time.Time
+	Email     string
+	Name      string
+	Password  string
+	UpdatedAt time.Time
+}

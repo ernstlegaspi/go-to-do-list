@@ -6,6 +6,7 @@ import (
 
 	"github.com/ernstlegaspi/todolist/internal/database"
 	"github.com/ernstlegaspi/todolist/internal/handlers"
+	"github.com/ernstlegaspi/todolist/internal/views"
 )
 
 type server struct {
@@ -37,6 +38,10 @@ func (s *server) RunAPI() error {
 	}
 
 	router.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		views.Home().Render(r.Context(), w)
+	})
 
 	list := handlers.Run(db.DB)
 	list.InitListEndpoints(router)

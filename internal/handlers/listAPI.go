@@ -22,11 +22,6 @@ func Run(db *sql.DB) *handler {
 }
 
 func (h *handler) InitListEndpoints(mux *http.ServeMux) {
-	// START OF PAGES ENDPOINT
-	mux.HandleFunc("/", h.homePage)
-	// END OF PAGES ENDPOINT
-
-	// START OF API ENDPOINTS
 	mux.HandleFunc("DELETE /todo/{id}", h.deleteTodo)
 
 	mux.HandleFunc("GET /todo", h.getTodos)
@@ -34,11 +29,6 @@ func (h *handler) InitListEndpoints(mux *http.ServeMux) {
 	mux.HandleFunc("POST /todo", h.addTodo)
 
 	mux.HandleFunc("PUT /todo/{id}", h.updateTodo)
-	// END OF API ENDPOINTS
-}
-
-func (h *handler) homePage(w http.ResponseWriter, r *http.Request) {
-	views.Home().Render(r.Context(), w)
 }
 
 func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
