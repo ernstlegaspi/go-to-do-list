@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/ernstlegaspi/todolist/internal/types"
@@ -26,6 +27,8 @@ func (h *handler) InitListEndpoints(mux *http.ServeMux) {
 	// END OF PAGES ENDPOINT
 
 	// START OF API ENDPOINTS
+	mux.HandleFunc("DELETE /todo/{id}", h.deleteTodo)
+
 	mux.HandleFunc("GET /todo", h.getTodos)
 
 	mux.HandleFunc("POST /todo", h.addTodo)
@@ -37,6 +40,8 @@ func (h *handler) homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
+	var id int
+
 	body := &types.Todo{
 		CreatedAt:   time.Now(),
 		Description: r.FormValue("description"),
@@ -47,14 +52,15 @@ func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
 		insert into list
 		(createdAt, description, updatedAt)
 		values ($1, $2, $3)
+		returning id
 	`
 
-	_, err := h.db.Exec(
+	err := h.db.QueryRow(
 		query,
 		body.CreatedAt,
 		body.Description,
 		body.UpdatedAt,
-	)
+	).Scan(&id)
 
 	if err != nil {
 		fmt.Println(err)
@@ -62,7 +68,37 @@ func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	views.ToDoCard(body.Description).Render(r.Context(), w)
+	views.ToDoCard(body.Description, strconv.Itoa(id)).Render(r.Context(), w)
+}
+
+func (h *handler) deleteTodo(w http.ResponseWriter, r *http.Request) {
+	n, err := strconv.Atoi(r.PathValue("id"))
+
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Not a valid id")
+		return
+	}
+
+	result, e := h.db.Query("delete from list where id = $1", n)
+
+	if e != nil {
+		fmt.Println(e)
+		fmt.Println("Can not delete todo")
+		return
+	}
+
+	defer func() {
+		if err := result.Close(); err != nil {
+			fmt.Println(err)
+			fmt.Println("Error 500")
+			return
+		}
+	}()
+
+	fmt.Println("Deleting...")
+
+	h.getTodos(w, r)
 }
 
 func (h *handler) getTodos(w http.ResponseWriter, r *http.Request) {
@@ -98,6 +134,6 @@ func (h *handler) getTodos(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, todo := range todos {
-		views.ToDoCard(todo.Description).Render(r.Context(), w)
+		views.ToDoCard(todo.Description, strconv.Itoa(todo.ID)).Render(r.Context(), w)
 	}
 }

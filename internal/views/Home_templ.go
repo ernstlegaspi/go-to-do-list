@@ -108,7 +108,7 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"w-full h-full flex items-center justify-center\"><div class=\"flex flex-col bg-white/90 rounded h-[90%] w-[500px] shadow-sm shadow-black/80 px-3\"><div class=\"flex justify-between items-center my-3\"><h1 class=\"text-[25px] font-bold select-none text-[#272727]\">To Do List</h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"w-full h-full flex items-center justify-center\"><div class=\"flex flex-col bg-white rounded h-[90%] w-[400px] shadow-sm shadow-black/80 px-3\"><div class=\"flex justify-between items-center my-3\"><h1 class=\"text-[25px] font-bold select-none text-[#272727]\">To Do List</h1>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -159,7 +159,7 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"cancel-button\" class=\"select-none py-2 px-4 rounded border border-red-300 bg-red-300 text-white transition-all hover:bg-red-400 hover:border-red-400\">Cancel\r</button></form></div><div hx-get=\"/todo\" hx-trigger=\"load\" hx-target=\"#todos\" hx-swap=\"innerHTML\"></div><div id=\"todos\" class=\"mt-3 scroll\"></div></div></div></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"cancel-button\" class=\"select-none py-2 px-4 rounded border border-red-300 bg-red-300 text-white transition-all hover:bg-red-400 hover:border-red-400\">Cancel\r</button></form></div><div hx-get=\"/todo\" hx-trigger=\"load\" hx-target=\"#todos\" hx-swap=\"innerHTML\"></div><div id=\"todos\" class=\"scroll\"></div></div></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
