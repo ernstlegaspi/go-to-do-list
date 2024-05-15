@@ -54,6 +54,7 @@ templ Home() {
 			<script src="https://cdn.tailwindcss.com"></script>
 			<script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
 			<title>To Do List</title>
+			<link rel="stylesheet" href="/static/css/globals.css" />
 		</head>
 		<body onload={onload()} class="w-full h-[100vh] bg-[#272727]">
 			<div class="w-full h-full flex items-center justify-center">
@@ -76,7 +77,7 @@ templ Home() {
 						</form>
 					</div>
 					<div hx-get="/todo" hx-trigger="load" hx-target="#todos" hx-swap="innerHTML"></div>
-					<div id="todos" class="mt-3 overflow-y-scroll">
+					<div id="todos" class="mt-3 scroll">
 					</div>
 				</div>
 			</div>

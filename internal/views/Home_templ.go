@@ -25,9 +25,8 @@ func addTodoClick() templ.ComponentScript {
 
 func inputFieldChange() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_inputFieldChange_50d2`,
-		Function: `function __templ_inputFieldChange_50d2(){const inputForm = document.getElementById("input-form")
-
+		Name: `__templ_inputFieldChange_a0e5`,
+		Function: `function __templ_inputFieldChange_a0e5(){const inputForm = document.getElementById("input-form")
 	const addButton = document.getElementById("add-button")
 	const val = inputForm.value
 
@@ -42,8 +41,8 @@ func inputFieldChange() templ.ComponentScript {
 	addButton.classList.remove("border-green-100", "bg-green-100")
 	addButton.removeAttribute("disabled", false)
 }`,
-		Call:       templ.SafeScript(`__templ_inputFieldChange_50d2`),
-		CallInline: templ.SafeScriptInline(`__templ_inputFieldChange_50d2`),
+		Call:       templ.SafeScript(`__templ_inputFieldChange_a0e5`),
+		CallInline: templ.SafeScriptInline(`__templ_inputFieldChange_a0e5`),
 	}
 }
 
@@ -92,7 +91,7 @@ func Home() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script src=\"https://cdn.tailwindcss.com\"></script><script src=\"https://unpkg.com/htmx.org@1.9.2\" integrity=\"sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h\" crossorigin=\"anonymous\"></script><title>To Do List</title></head>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script src=\"https://cdn.tailwindcss.com\"></script><script src=\"https://unpkg.com/htmx.org@1.9.2\" integrity=\"sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h\" crossorigin=\"anonymous\"></script><title>To Do List</title><link rel=\"stylesheet\" href=\"/static/css/globals.css\"></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -160,7 +159,7 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"cancel-button\" class=\"select-none py-2 px-4 rounded border border-red-300 bg-red-300 text-white transition-all hover:bg-red-400 hover:border-red-400\">Cancel\r</button></form></div><div hx-get=\"/todo\" hx-trigger=\"load\" hx-target=\"#todos\" hx-swap=\"innerHTML\"></div><div id=\"todos\" class=\"mt-3 overflow-y-scroll\"></div></div></div></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"cancel-button\" class=\"select-none py-2 px-4 rounded border border-red-300 bg-red-300 text-white transition-all hover:bg-red-400 hover:border-red-400\">Cancel\r</button></form></div><div hx-get=\"/todo\" hx-trigger=\"load\" hx-target=\"#todos\" hx-swap=\"innerHTML\"></div><div id=\"todos\" class=\"mt-3 scroll\"></div></div></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
