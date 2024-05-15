@@ -130,7 +130,7 @@ func (h *handler) deleteTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *handler) getTodos(w http.ResponseWriter, r *http.Request) {
-	rows, err := h.db.Query("select * from list")
+	rows, err := h.db.Query("select * from list order by updatedAt desc")
 
 	if err != nil {
 		fmt.Println(err)
