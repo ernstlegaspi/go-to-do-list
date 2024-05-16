@@ -108,58 +108,7 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"w-full h-full flex items-center justify-center\"><div class=\"flex flex-col bg-white rounded h-[90%] w-[400px] px-3\"><div class=\"flex justify-between items-center my-3\"><h1 class=\"text-[25px] font-bold select-none text-[#272727]\">To Do List</h1>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, addTodoClick())
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div onclick=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var3 templ.ComponentScript = addTodoClick()
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3.Call)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"text-[#272727] w-[25px] h-[25px] cursor-pointer\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1\"></path></svg></div></div><div id=\"form\" class=\"hidden overflow-y-hidden h-[45px]\"><form id=\"todo-form\" class=\"flex\" hx-post=\"/todo\" hx-target=\"#todos\" hx-swap=\"beforeend\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, inputFieldChange())
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input oninput=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var4 templ.ComponentScript = inputFieldChange()
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4.Call)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"input-form\" class=\"flex-1 outline-none bg-transparent border-b border-black\" name=\"description\"> <button disabled=\"true\" id=\"add-button\" class=\"select-none py-2 px-4 rounded border text-white transition-all mx-3 border-green-100 bg-green-100\" type=\"submit\">Add\r</button> ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, cancelTodoClick())
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"button\" onclick=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var5 templ.ComponentScript = cancelTodoClick()
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5.Call)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"select-none py-2 px-4 rounded border border-red-300 bg-red-300 text-white transition-all hover:bg-red-400 hover:border-red-400\">Cancel\r</button></form></div><div hx-get=\"/todo\" hx-trigger=\"load\" hx-target=\"#todos\" hx-swap=\"innerHTML\"></div><div id=\"todos\" class=\"scroll\"></div></div></div></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"w-full h-full flex items-center justify-center\"><div class=\"flex flex-col bg-white rounded h-[90%] w-[400px] px-3\"><button hx-post=\"/register\" hx-trigger=\"click\">Click me</button></div></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

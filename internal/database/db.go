@@ -33,6 +33,12 @@ func (d *DBType) CreateTables() error {
 		return err
 	}
 
+	if err := d.createUserTable(); err != nil {
+		fmt.Println(err)
+		fmt.Println("Can not create create list table.")
+		return err
+	}
+
 	return nil
 }
 
@@ -42,6 +48,23 @@ func (d *DBType) createListTable() error {
 			id serial primary key,
 			createdAt timestamp,
 			description varchar(200),
+			updatedAt timestamp
+		)
+	`
+
+	_, err := d.DB.Exec(query)
+
+	return err
+}
+
+func (d *DBType) createUserTable() error {
+	query := `
+		create table if not exists users (
+			id serial primary key,
+			createdAt timestamp,
+			email varchar(60),
+			name varchar(30),
+			password varchar(30),
 			updatedAt timestamp
 		)
 	`

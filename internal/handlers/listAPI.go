@@ -15,7 +15,7 @@ type handler struct {
 	db *sql.DB
 }
 
-func Run(db *sql.DB) *handler {
+func RunList(db *sql.DB) *handler {
 	return &handler{
 		db: db,
 	}

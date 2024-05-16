@@ -7,6 +7,8 @@ import (
 	"github.com/ernstlegaspi/todolist/internal/database"
 	"github.com/ernstlegaspi/todolist/internal/handlers"
 	"github.com/ernstlegaspi/todolist/internal/views"
+
+	"github.com/joho/godotenv"
 )
 
 type server struct {
@@ -37,14 +39,22 @@ func (s *server) RunAPI() error {
 		return listTableErr
 	}
 
+	if envError := godotenv.Load("../.env"); envError != nil {
+		fmt.Println(envError)
+		return envError
+	}
+
 	router.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		views.Home().Render(r.Context(), w)
 	})
 
-	list := handlers.Run(db.DB)
+	list := handlers.RunList(db.DB)
 	list.InitListEndpoints(router)
+
+	user := handlers.RunUser(db.DB)
+	user.InitUserEndpoints(router)
 
 	server := http.Server{
 		Addr:    s.addr,
