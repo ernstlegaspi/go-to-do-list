@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/ernstlegaspi/todolist/internal/database"
 	"github.com/ernstlegaspi/todolist/internal/handlers"
@@ -72,7 +73,7 @@ func (s *server) RunAPI() error {
 
 			claims := token.Claims.(jwt.MapClaims)
 
-			views.Home(claims["name"].(string)).Render(r.Context(), w)
+			views.Home(strings.Split(claims["name"].(string), " ")[0]).Render(r.Context(), w)
 			return
 		}
 

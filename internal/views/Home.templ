@@ -35,6 +35,11 @@ script onload() {
 	const form = document.getElementById("todo-form")
 	const inputForm = document.getElementById("input-form")
 	const addButton = document.getElementById("add-button")
+	const welcomeForm = document.getElementById("welcome-form")
+
+	welcomeForm.addEventListener("htmx:afterRequest", e => {
+		window.location.reload()
+	})
 
 	form.addEventListener('htmx:afterRequest', e => {
 		inputForm.value = ""
@@ -58,7 +63,7 @@ templ Home(name string) {
 		</head>
 		<body onload={onload()} class="w-full h-[100vh] bg-[#272727]">
 			<div class="w-full h-full flex flex-col items-center justify-center">
-				<form class="mb-3 flex justify-between bg-white rounded w-[400px] px-3">
+				<form id="welcome-form" hx-post="/logout" class="mb-3 flex justify-between bg-white rounded w-[400px] px-3">
 					<p>Welcome back, <span class="font-bold text-[20px]">{name}</span></p>
 					<button type="submit">Logout</button>
 				</form>

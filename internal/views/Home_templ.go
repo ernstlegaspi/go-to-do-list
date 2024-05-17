@@ -61,10 +61,15 @@ func cancelTodoClick() templ.ComponentScript {
 
 func onload() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_onload_d8d2`,
-		Function: `function __templ_onload_d8d2(){const form = document.getElementById("todo-form")
+		Name: `__templ_onload_1584`,
+		Function: `function __templ_onload_1584(){const form = document.getElementById("todo-form")
 	const inputForm = document.getElementById("input-form")
 	const addButton = document.getElementById("add-button")
+	const welcomeForm = document.getElementById("welcome-form")
+
+	welcomeForm.addEventListener("htmx:afterRequest", e => {
+		window.location.reload()
+	})
 
 	form.addEventListener('htmx:afterRequest', e => {
 		inputForm.value = ""
@@ -73,8 +78,8 @@ func onload() templ.ComponentScript {
 		addButton.classList.add("border-green-100", "bg-green-100")
 	})
 }`,
-		Call:       templ.SafeScript(`__templ_onload_d8d2`),
-		CallInline: templ.SafeScriptInline(`__templ_onload_d8d2`),
+		Call:       templ.SafeScript(`__templ_onload_1584`),
+		CallInline: templ.SafeScriptInline(`__templ_onload_1584`),
 	}
 }
 
@@ -108,14 +113,14 @@ func Home(name string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"w-full h-full flex flex-col items-center justify-center\"><form class=\"flex justify-between bg-white rounded w-[400px] px-3\"><p>Welcome back, <span class=\"font-bold text-[20px]\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"w-full h-full flex flex-col items-center justify-center\"><form id=\"welcome-form\" hx-post=\"/logout\" class=\"mb-3 flex justify-between bg-white rounded w-[400px] px-3\"><p>Welcome back, <span class=\"font-bold text-[20px]\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal\views\Home.templ`, Line: 62, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal\views\Home.templ`, Line: 67, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
