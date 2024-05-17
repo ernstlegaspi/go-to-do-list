@@ -47,7 +47,20 @@ func (s *server) RunAPI() error {
 	router.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		views.Home().Render(r.Context(), w)
+		// _, err := r.Cookie("session_token")
+
+		// if cookie.Value == "" {
+		// 	views.Auth().Render(r.Context(), w)
+		// 	return
+		// }
+
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	fmt.Println("Unauthorized")
+		// 	return
+		// }
+
+		views.Auth().Render(r.Context(), w)
 	})
 
 	list := handlers.RunList(db.DB)

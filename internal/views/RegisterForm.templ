@@ -1,9 +1,9 @@
 package views
 
 templ RegisterForm() {
-	<div class="bg-white rounded py-2 w-[400px] px-3">
+	<div class="bg-white rounded py-2 w-[400px] px-3 h-full">
 		<p class="font-medium text-center text-[20px] my-2">Register</p>
-		<form>
+		<form id="register-form" hx-post="/register">
 			<input name="name" placeholder="Name" type="text" class="border-b border-black w-full py-2 px-1 outline-none" />
 			<br />
 			<input name="email" placeholder="Email" type="email" class="border-b border-black w-full py-2 px-1 outline-none my-3" />

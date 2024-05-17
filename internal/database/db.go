@@ -62,9 +62,9 @@ func (d *DBType) createUserTable() error {
 		create table if not exists users (
 			id serial primary key,
 			createdAt timestamp,
-			email varchar(60),
+			email varchar(60) unique,
 			name varchar(30),
-			password varchar(30),
+			password TEXT,
 			updatedAt timestamp
 		)
 	`
