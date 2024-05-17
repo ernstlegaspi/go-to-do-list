@@ -2,6 +2,23 @@ package views
 
 script authOnLoad() {
 	const registerForm = document.getElementById("register-form")
+	const password = document.getElementById("password")
+	const confirmPassword = document.getElementById("confirm-password")
+
+	registerForm.addEventListener("htmx:configRequest", e => {
+		const pw = password.value
+		const cpw = confirmPassword.value
+		
+		if(pw < 5 || cpw < 5) {
+			e.preventDefault()
+			alert("Passwords should be at least 5 characters.")
+		}
+		
+		if(pw !== cpw) {
+			e.preventDefault()
+			alert("Password should be the same.")
+		}
+	})
 
 	registerForm.addEventListener("htmx:afterRequest", e => {
 		window.location.reload()

@@ -12,15 +12,24 @@ import "bytes"
 
 func authOnLoad() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_authOnLoad_fc20`,
-		Function: `function __templ_authOnLoad_fc20(){const registerForm = document.getElementById("register-form")
+		Name: `__templ_authOnLoad_0675`,
+		Function: `function __templ_authOnLoad_0675(){const registerForm = document.getElementById("register-form")
+	const password = document.getElementById("password")
+	const confirmPassword = document.getElementById("confirm-password")
+
+	registerForm.addEventListener("htmx:configRequest", e => {
+		if(password.value !== confirmPassword.value) {
+			e.preventDefault()
+			alert("Password should be the same")
+		}
+	})
 
 	registerForm.addEventListener("htmx:afterRequest", e => {
 		window.location.reload()
 	})
 }`,
-		Call:       templ.SafeScript(`__templ_authOnLoad_fc20`),
-		CallInline: templ.SafeScriptInline(`__templ_authOnLoad_fc20`),
+		Call:       templ.SafeScript(`__templ_authOnLoad_0675`),
+		CallInline: templ.SafeScriptInline(`__templ_authOnLoad_0675`),
 	}
 }
 
@@ -54,7 +63,7 @@ func Auth() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"flex items-center justify-center\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"flex items-center justify-center h-full\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
