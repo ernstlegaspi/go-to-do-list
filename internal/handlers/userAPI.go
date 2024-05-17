@@ -22,7 +22,21 @@ func RunUser(db *sql.DB) *endpoint {
 }
 
 func (e *endpoint) InitUserEndpoints(h *http.ServeMux) {
+	h.HandleFunc("POST /logout", e.logout)
 	h.HandleFunc("POST /register", e.registerUser)
+}
+
+func (e *endpoint) logout(w http.ResponseWriter, r *http.Request) {
+	cookie := &http.Cookie{
+		Expires:  time.Unix(0, 0),
+		HttpOnly: true,
+		MaxAge:   -1,
+		Name:     "session_token",
+		Path:     "/",
+		Value:    "",
+	}
+
+	http.SetCookie(w, cookie)
 }
 
 func (e *endpoint) registerUser(w http.ResponseWriter, r *http.Request) {
@@ -41,12 +55,13 @@ func (e *endpoint) registerUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var id int
+	name := r.FormValue("name")
 
 	err := e.db.QueryRow(
 		query,
 		time.Now(),
 		r.FormValue("email"),
-		r.FormValue("name"),
+		name,
 		string(pwBytes),
 		time.Now(),
 	).Scan(&id)
@@ -57,7 +72,7 @@ func (e *endpoint) registerUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, tokenError := utils.CreateJWT(id)
+	token, tokenError := utils.CreateJWT(id, name)
 
 	if tokenError != nil {
 		fmt.Println(tokenError)
@@ -66,9 +81,10 @@ func (e *endpoint) registerUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	cookie := &http.Cookie{
-		Name:  "session_token",
-		Value: token,
-		Path:  "/",
+		Name:     "session_token",
+		HttpOnly: true,
+		Value:    token,
+		Path:     "/",
 	}
 
 	http.SetCookie(w, cookie)

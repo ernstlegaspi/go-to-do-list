@@ -12,15 +12,23 @@ import "bytes"
 
 func authOnLoad() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_authOnLoad_0675`,
-		Function: `function __templ_authOnLoad_0675(){const registerForm = document.getElementById("register-form")
+		Name: `__templ_authOnLoad_1624`,
+		Function: `function __templ_authOnLoad_1624(){const registerForm = document.getElementById("register-form")
 	const password = document.getElementById("password")
 	const confirmPassword = document.getElementById("confirm-password")
 
 	registerForm.addEventListener("htmx:configRequest", e => {
-		if(password.value !== confirmPassword.value) {
+		const pw = password.value
+		const cpw = confirmPassword.value
+		
+		if(pw < 5 || cpw < 5) {
 			e.preventDefault()
-			alert("Password should be the same")
+			alert("Passwords should be at least 5 characters.")
+		}
+		
+		if(pw !== cpw) {
+			e.preventDefault()
+			alert("Password should be the same.")
 		}
 	})
 
@@ -28,8 +36,8 @@ func authOnLoad() templ.ComponentScript {
 		window.location.reload()
 	})
 }`,
-		Call:       templ.SafeScript(`__templ_authOnLoad_0675`),
-		CallInline: templ.SafeScriptInline(`__templ_authOnLoad_0675`),
+		Call:       templ.SafeScript(`__templ_authOnLoad_1624`),
+		CallInline: templ.SafeScriptInline(`__templ_authOnLoad_1624`),
 	}
 }
 

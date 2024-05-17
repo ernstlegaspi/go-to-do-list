@@ -6,8 +6,10 @@ import (
 
 	"github.com/ernstlegaspi/todolist/internal/database"
 	"github.com/ernstlegaspi/todolist/internal/handlers"
+	"github.com/ernstlegaspi/todolist/internal/utils"
 	"github.com/ernstlegaspi/todolist/internal/views"
 
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/joho/godotenv"
 )
 
@@ -55,7 +57,22 @@ func (s *server) RunAPI() error {
 				return
 			}
 
-			views.Home().Render(r.Context(), w)
+			token, err := utils.ParseJWT(cookie.Value)
+
+			if err != nil {
+				fmt.Println(err)
+				fmt.Println("Error in parse jwt")
+				return
+			}
+
+			if !token.Valid {
+				fmt.Println("Token is not valid.")
+				return
+			}
+
+			claims := token.Claims.(jwt.MapClaims)
+
+			views.Home(claims["name"].(string)).Render(r.Context(), w)
 			return
 		}
 
