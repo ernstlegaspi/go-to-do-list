@@ -9,6 +9,7 @@ type Todo struct {
 	CreatedAt   time.Time
 	Description string
 	UpdatedAt   time.Time
+	UserID      int
 }
 
 type User struct {

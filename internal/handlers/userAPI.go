@@ -43,7 +43,7 @@ func (e *endpoint) registerUser(w http.ResponseWriter, r *http.Request) {
 	query := `
 		insert into users
 		(createdAt, email, name, password, updatedAt)
-		values ($1, $2, $3, $4, $5)
+		values (NOW(), $1, $2, $3, NOW())
 		returning id
 	`
 
@@ -59,11 +59,9 @@ func (e *endpoint) registerUser(w http.ResponseWriter, r *http.Request) {
 
 	err := e.db.QueryRow(
 		query,
-		time.Now(),
 		r.FormValue("email"),
 		name,
 		string(pwBytes),
-		time.Now(),
 	).Scan(&id)
 
 	if err != nil {

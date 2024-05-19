@@ -27,13 +27,13 @@ func ConnectDB() (*DBType, error) {
 }
 
 func (d *DBType) CreateTables() error {
-	if err := d.createListTable(); err != nil {
+	if err := d.createUserTable(); err != nil {
 		fmt.Println(err)
 		fmt.Println("Can not create create list table.")
 		return err
 	}
 
-	if err := d.createUserTable(); err != nil {
+	if err := d.createListTable(); err != nil {
 		fmt.Println(err)
 		fmt.Println("Can not create create list table.")
 		return err
@@ -48,7 +48,8 @@ func (d *DBType) createListTable() error {
 			id serial primary key,
 			createdAt timestamp,
 			description varchar(200),
-			updatedAt timestamp
+			updatedAt timestamp,
+			user_id int unique references users(id)
 		)
 	`
 

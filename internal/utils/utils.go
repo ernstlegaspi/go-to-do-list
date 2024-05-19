@@ -2,11 +2,39 @@ package utils
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
+
+func HasJWT(r *http.Request) (jwt.MapClaims, error) {
+	cookie, cookieError := r.Cookie("session_token")
+
+	if cookieError != nil {
+		fmt.Println(cookieError)
+		fmt.Println("Unauthorized.")
+		return nil, cookieError
+	}
+
+	token, tokenError := ParseJWT(cookie.Value)
+
+	if tokenError != nil {
+		fmt.Println(tokenError)
+		fmt.Println("Invalid token")
+		return nil, cookieError
+	}
+
+	if !token.Valid {
+		fmt.Println("Unathorized")
+		return nil, nil
+	}
+
+	claims := token.Claims.(jwt.MapClaims)
+
+	return claims, nil
+}
 
 func CreateJWT(id int, name string) (string, error) {
 	expiration := time.Second * time.Duration(3600*24*7)
