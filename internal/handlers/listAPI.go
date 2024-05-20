@@ -44,11 +44,7 @@ func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
 
 	userID := strconv.Itoa(int(claims["id"].(float64)))
 
-	body := &types.Todo{
-		CreatedAt:   time.Now(),
-		Description: r.FormValue("description"),
-		UpdatedAt:   time.Now(),
-	}
+	description := r.FormValue("description")
 
 	query := `
 		insert into list
@@ -59,17 +55,18 @@ func (h *handler) addTodo(w http.ResponseWriter, r *http.Request) {
 
 	err := h.db.QueryRow(
 		query,
-		body.Description,
+		description,
 		userID,
 	).Scan(&id)
 
 	if err != nil {
 		fmt.Println(err)
 		fmt.Println("Error inserting to database")
+		fmt.Println("Here error")
 		return
 	}
 
-	views.ToDoCard(body.Description, strconv.Itoa(id)).Render(r.Context(), w)
+	views.ToDoCard(description, strconv.Itoa(id)).Render(r.Context(), w)
 }
 
 func (h *handler) updateTodo(w http.ResponseWriter, r *http.Request) {

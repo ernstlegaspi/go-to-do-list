@@ -49,7 +49,7 @@ func (d *DBType) createListTable() error {
 			createdAt timestamp,
 			description varchar(200),
 			updatedAt timestamp,
-			user_id int unique references users(id)
+			user_id int references users(id)
 		)
 	`
 
