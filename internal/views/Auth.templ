@@ -1,6 +1,7 @@
 package views
 
 script authOnLoad() {
+	const loginForm = document.getElementById("login-form")
 	const registerForm = document.getElementById("register-form")
 	const password = document.getElementById("password")
 	const confirmPassword = document.getElementById("confirm-password")
@@ -21,6 +22,19 @@ script authOnLoad() {
 	})
 
 	registerForm.addEventListener("htmx:afterRequest", e => {
+		const loginAuth = document.getElementById("login-auth")
+		const registerAuth = document.getElementById("register-auth")
+
+		loginAuth.classList.remove("hidden")
+		loginAuth.classList.add("block")
+
+		registerAuth.classList.remove("block")
+		registerAuth.classList.add("hidden")
+		
+		window.location.reload()
+	})
+
+	loginForm.addEventListener("htmx:afterRequest", e => {
 		window.location.reload()
 	})
 }
@@ -39,6 +53,7 @@ templ Auth() {
 		</head>
 		<body onload={authOnLoad()} class="w-full h-[100vh] bg-[#272727]">
 			<div class="flex items-center justify-center h-full">
+				@LoginForm()
 				@RegisterForm()
 			</div>
 		</body>

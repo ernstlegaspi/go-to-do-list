@@ -1,0 +1,29 @@
+package views
+
+script onclick() {
+	const registerForm = document.getElementById("register-auth")
+	const loginForm = document.getElementById("login-auth")
+
+	registerForm.classList.remove("hidden")
+	registerForm.classList.add("block")
+
+	loginForm.classList.remove("block")
+	loginForm.classList.add("hidden")
+}
+
+templ LoginForm() {
+	<div id="login-auth" class="block bg-white rounded py-2 w-[400px] px-3">
+		<p class="font-medium text-center text-[20px] my-2">Login</p>
+		<form id="login-form" hx-post="/login">
+			<input name="login-email" placeholder="Email" type="email" class="border-b border-black w-full py-2 px-1 outline-none my-3" />
+			<br />
+			<input id="login-password" name="password" placeholder="Password" type="password" class="border-b border-black w-full py-2 px-1 outline-none" />
+			<br />
+			<button type="submit" class="w-full py-2 mt-3 rounded border border-black transition-all hover:text-white hover:bg-black">
+				Login
+			</button>
+		</form>
+		<p class="my-3 text-center">or</p>
+		<button onclick={onclick()} class="w-full py-2 mt-3 rounded border border-black transition-all hover:text-white hover:bg-black">Register</button>
+	</div>
+}

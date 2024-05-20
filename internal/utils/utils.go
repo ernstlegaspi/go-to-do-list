@@ -65,3 +65,14 @@ func ParseJWT(token string) (*jwt.Token, error) {
 		return []byte(os.Getenv("SECRET_KEY")), nil
 	})
 }
+
+func SetCookies(w http.ResponseWriter, token string) {
+	cookie := &http.Cookie{
+		Name:     "session_token",
+		HttpOnly: true,
+		Value:    token,
+		Path:     "/",
+	}
+
+	http.SetCookie(w, cookie)
+}

@@ -1,7 +1,7 @@
 package views
 
 templ RegisterForm() {
-	<div class="bg-white rounded py-2 w-[400px] px-3">
+	<div id="register-auth" class="hidden bg-white rounded py-2 w-[400px] px-3">
 		<p class="font-medium text-center text-[20px] my-2">Register</p>
 		<form id="register-form" hx-post="/register">
 			<input name="name" placeholder="Name" type="text" class="border-b border-black w-full py-2 px-1 outline-none" />

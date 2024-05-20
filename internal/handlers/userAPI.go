@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/ernstlegaspi/todolist/internal/types"
 	"github.com/ernstlegaspi/todolist/internal/utils"
 
 	"golang.org/x/crypto/bcrypt"
@@ -24,6 +25,7 @@ func RunUser(db *sql.DB) *endpoint {
 func (e *endpoint) InitUserEndpoints(h *http.ServeMux) {
 	h.HandleFunc("POST /logout", e.logout)
 	h.HandleFunc("POST /register", e.registerUser)
+	h.HandleFunc("POST /login", e.loginUser)
 }
 
 func (e *endpoint) logout(w http.ResponseWriter, r *http.Request) {
@@ -78,12 +80,26 @@ func (e *endpoint) registerUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cookie := &http.Cookie{
-		Name:     "session_token",
-		HttpOnly: true,
-		Value:    token,
-		Path:     "/",
+	utils.SetCookies(w, token)
+}
+
+func (e *endpoint) loginUser(w http.ResponseWriter, r *http.Request) {
+	var user types.User
+	query := "select * from users where email = $1"
+
+	err := e.db.QueryRow(query, r.FormValue("login-email")).Scan(&user.ID, &user.CreatedAt, &user.Email, &user.Name, &user.Password, &user.UpdatedAt)
+
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
-	http.SetCookie(w, cookie)
+	token, tokenErr := utils.CreateJWT(user.ID, user.Name)
+
+	if tokenErr != nil {
+		fmt.Println(tokenErr)
+		return
+	}
+
+	utils.SetCookies(w, token)
 }

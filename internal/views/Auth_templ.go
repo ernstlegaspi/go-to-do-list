@@ -12,8 +12,9 @@ import "bytes"
 
 func authOnLoad() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_authOnLoad_1624`,
-		Function: `function __templ_authOnLoad_1624(){const registerForm = document.getElementById("register-form")
+		Name: `__templ_authOnLoad_6b0f`,
+		Function: `function __templ_authOnLoad_6b0f(){const loginForm = document.getElementById("login-form")
+	const registerForm = document.getElementById("register-form")
 	const password = document.getElementById("password")
 	const confirmPassword = document.getElementById("confirm-password")
 
@@ -33,11 +34,24 @@ func authOnLoad() templ.ComponentScript {
 	})
 
 	registerForm.addEventListener("htmx:afterRequest", e => {
+		const loginAuth = document.getElementById("login-auth")
+		const registerAuth = document.getElementById("register-auth")
+
+		loginAuth.classList.remove("hidden")
+		loginAuth.classList.add("block")
+
+		registerAuth.classList.remove("block")
+		registerAuth.classList.add("hidden")
+		
+		window.location.reload()
+	})
+
+	loginForm.addEventListener("htmx:afterRequest", e => {
 		window.location.reload()
 	})
 }`,
-		Call:       templ.SafeScript(`__templ_authOnLoad_1624`),
-		CallInline: templ.SafeScriptInline(`__templ_authOnLoad_1624`),
+		Call:       templ.SafeScript(`__templ_authOnLoad_6b0f`),
+		CallInline: templ.SafeScriptInline(`__templ_authOnLoad_6b0f`),
 	}
 }
 
@@ -72,6 +86,10 @@ func Auth() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"w-full h-[100vh] bg-[#272727]\"><div class=\"flex items-center justify-center h-full\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = LoginForm().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
